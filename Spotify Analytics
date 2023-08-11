@@ -57,3 +57,24 @@ FROM SpotifyData
 GROUP BY artist_name
 ORDER BY popularity DESC
 LIMIT 10;
+
+#Determine the avg popularity, danceability, and energy by artist and track.
+SELECT
+artist_name as artist,
+track_name as track,
+avg(popularity) as popularity,
+round(avg(danceability*100)) as danceability,
+round(avg(energy*100)) as energy
+FROM BIT_DB.spotifydata
+GROUP BY artist_name, track_name;
+
+#Then I wanted to see if there was any correlation between loudness and popularity
+SELECT artist_name, max(loudness), max(popularity)
+FROM SpotifyData
+GROUP BY popularity, artist_name
+ORDER BY max(loudness) ASC;
+
+SELECT artist_name, MAX(loudness), MAX(popularity)
+FROM SpotifyData
+GROUP BY artist_name
+ORDER BY MAX(popularity) DESC, MAX(loudness) ASC;
